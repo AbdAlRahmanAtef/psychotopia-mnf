@@ -10,7 +10,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-/* CRETE */
+/* CREATE */
 export const createPost = async (req, res) => {
   try {
     const { title, category, image, description, tags } = req.body;
@@ -32,7 +32,7 @@ export const createPost = async (req, res) => {
 
     res.status(201).json(post);
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -43,7 +43,7 @@ export const getPosts = async (req, res) => {
 
     res.status(200).json(posts);
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -54,14 +54,14 @@ export const getPostById = async (req, res) => {
 
     res.status(200).json(post);
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
 export const searchPost = async (req, res) => {
   try {
     const { query } = req.query;
-    console.log(query);
+
     const posts = await Post.find({
       $or: [
         { title: { $regex: query, $options: 'i' } },
@@ -71,8 +71,82 @@ export const searchPost = async (req, res) => {
       ],
     });
 
-    res.json(posts);
+    res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPostsByTags = async (req, res) => {
+  try {
+    const { tags } = req.query;
+    console.log(tags);
+
+    const posts = await Post.find({
+      tags: { $regex: tags, $options: 'i' },
+    });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/* UPDATE */
+export const updatePost = async (req, res) => {
+  try {
+    const { _id, title, category, description, tags, image } = req.body;
+
+    let newImage = '';
+
+    if (image.includes('http')) {
+      newImage = image;
+    } else {
+      const result = await cloudinary.uploader.upload(image, {
+        width: 500,
+        height: 500,
+        crop: 'fill',
+      });
+      newImage = result?.secure_url;
+
+      const post = await Post.findById(_id);
+      if (post.image !== newImage) {
+        const publicId = post.image.match(/\/v\d+\/([^/]+)\./)[1];
+        await cloudinary.uploader.destroy(publicId);
+      }
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      _id,
+      {
+        title,
+        category,
+        description,
+        tags: tags.split(','),
+        image: newImage,
+      },
+      { new: true },
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/* DELETE */
+export const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await Post.findById(id);
+    const publicId = post.image.match(/\/v\d+\/([^/]+)\./)[1];
+    await cloudinary.uploader.destroy(publicId);
+
+    await Post.findByIdAndRemove(id);
+
+    res.json('Post deleted successfully');
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
