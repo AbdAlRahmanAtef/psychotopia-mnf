@@ -1,31 +1,13 @@
 'use client';
 
-/* eslint-disable @next/next/no-img-element */
-import Header from 'components/Header';
-import {
-  Button,
-  Box,
-  Container,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import React, { useState } from 'react';
-import Sidebar from 'components/Sidebar';
-import Dropzone from 'react-dropzone';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { MuiChipsInput } from 'mui-chips-input';
+import PostForm from '@/components/PostForm';
+import { Container } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { Metadata } from 'next';
-import PostForm from '@/components/PostForm';
+import React, { useEffect, useState } from 'react';
 
-export const metadata: Metadata = {
-  title: 'Add Post',
-};
-
-const AddPost = () => {
+const EditPost = ({ params }) => {
+  const [post, setPost] = useState(null);
   const [title, setTitle] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -41,9 +23,16 @@ const AddPost = () => {
     if (image && title && description && tags && category) {
       setIsLoading(true);
       try {
-        const { data } = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/posts/create`,
-          { title, image, description, tags: tags.join(','), category },
+        const { data } = await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_URL}/posts/update`,
+          {
+            _id: post._id,
+            title,
+            image,
+            description,
+            tags: tags.join(','),
+            category,
+          },
         );
 
         console.log(data);
@@ -51,14 +40,43 @@ const AddPost = () => {
         setIsLoading(false);
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
 
+  const getPost = async () => {
+    try {
+      setIsLoading(true);
+
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/posts/${params.id}`,
+      );
+      console.log(data);
+
+      setPost(data);
+      setTitle(data.title);
+      setCategory(data.category);
+      setDescription(data.description);
+      setImage(data.image);
+      setPreviewImage(data.image);
+      setTags(data.tags);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getPost();
+  }, []);
+
   return (
     <Container>
       <PostForm
-        mode="add"
+        mode="update"
         title={title}
         setTitle={setTitle}
         handleSubmit={handleSubmit}
@@ -78,4 +96,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default EditPost;

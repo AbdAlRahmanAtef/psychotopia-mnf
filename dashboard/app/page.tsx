@@ -1,7 +1,5 @@
 'use client';
 
-import Header from 'components/Header';
-import Logo from 'assets/logo.jpg';
 import { RootState } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -20,11 +18,11 @@ const Home = () => {
   const getPosts = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/posts`,
-      );
-
-      setPosts(data);
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        next: { revalidate: 10 },
+      })
+        .then((res) => res.json())
+        .then((res) => setPosts(res));
     } catch (error) {
       console.log(error);
     } finally {
@@ -40,11 +38,8 @@ const Home = () => {
     getPosts();
   }, []);
 
-  console.log(posts);
-
   return (
     <Container>
-      <Header image={Logo} title="Psychotopia" icon="" />
       <Box
         sx={{
           direction: 'rtl',
@@ -70,13 +65,6 @@ const Home = () => {
             {posts.length > 0 ? (
               posts.map((post) => (
                 <>
-                  <Post key={post._id} post={post} />
-                  <Post key={post._id} post={post} />
-                  <Post key={post._id} post={post} />
-                  <Post key={post._id} post={post} />
-                  <Post key={post._id} post={post} />
-                  <Post key={post._id} post={post} />
-                  <Post key={post._id} post={post} />
                   <Post key={post._id} post={post} />
                 </>
               ))

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, List, ListItem, Stack, Typography } from '@mui/material';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
@@ -43,7 +44,6 @@ const LINKS = [
 
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
-  const router = useRouter();
   const pathname = usePathname();
 
   return (
@@ -61,31 +61,32 @@ const Sidebar = () => {
         onMouseLeave={() => setExpanded(false)}
       >
         {LINKS.map((link) => (
-          <ListItem key={link.href}>
-            <Button
-              endIcon={link.icon}
-              fullWidth
-              variant={pathname === `${link.href}` ? 'contained' : 'text'}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-              }}
-              onClick={() => router.push(link.href)}
-            >
-              <Typography
+          <Link key={link.href} href={link.href}>
+            <ListItem>
+              <Button
+                endIcon={link.icon}
+                fullWidth
+                variant={pathname === `${link.href}` ? 'contained' : 'text'}
                 sx={{
-                  display: {
-                    xs: expanded ? 'block' : 'none',
-                    sm: 'block',
-                  },
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
                 }}
               >
-                {' '}
-                {link.title}
-              </Typography>
-            </Button>
-          </ListItem>
+                <Typography
+                  sx={{
+                    display: {
+                      xs: expanded ? 'block' : 'none',
+                      sm: 'block',
+                    },
+                  }}
+                >
+                  {' '}
+                  {link.title}
+                </Typography>
+              </Button>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </Stack>
