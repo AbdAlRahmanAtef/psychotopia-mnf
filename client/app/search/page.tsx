@@ -41,6 +41,7 @@ const Search = () => {
         <input
           type="text"
           value={searchQuery}
+          placeholder="ابحث..."
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <p>
@@ -54,6 +55,7 @@ const Search = () => {
             textAlign: 'center',
             padding: '16px',
             borderRadius: '12px',
+            margin: 'auto',
           }}
         >
           {isLoading ? (
@@ -79,8 +81,10 @@ const Search = () => {
                     padding: '10px',
                     borderRadius: '8px',
                     cursor: 'pointer',
+                    transition: '.3s',
                     '&:hover': {
                       backgroundColor: '#3a3b3c',
+                      color: '#fff',
                     },
                   }}
                 >

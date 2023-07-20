@@ -94,7 +94,7 @@ const Footer = () => {
           }}
         >
           <CopyrightIcon />
-          جميع الحقوق محفوضة
+          جميع الحقوق محفوظة
         </Typography>
       </Container>
     </Box>

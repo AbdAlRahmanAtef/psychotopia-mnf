@@ -26,11 +26,12 @@ const Landing = () => {
           fontSize: '50px',
           fontWeight: 700,
           textAlign: 'center',
+          fontFamily: "'IBM Plex Sans Arabic', sans-serif",
         }}
       >
         <Typewriter
           options={{
-            strings: ['Psychotopia', 'MNF'],
+            strings: ['Say It Loud'],
             autoStart: true,
             loop: true,
           }}

@@ -39,9 +39,13 @@ export const createPost = async (req, res) => {
 /* READ */
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().sort({ _id: -1 });
+    const { category } = req.query;
+    console.log(category);
+    const filter = category ? { category } : {};
+    const posts = await Post.find({ filter }).sort({ _id: -1 });
+    const allCategories = await Post.distinct('category');
 
-    res.status(200).json(posts);
+    res.status(200).json({ posts, allCategories });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

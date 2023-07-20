@@ -22,6 +22,7 @@ import DarkModeButton from './DarkModeButton';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -42,10 +43,12 @@ const Header = () => {
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={resolvedTheme === 'dark' ? logoDark.src : logoLight.src}
+      <Image
+        src={resolvedTheme === 'dark' ? logoDark : logoLight}
         alt=""
-        style={{ height: '60px', borderRadius: '50%', cursor: 'pointer' }}
+        width={70}
+        height={70}
+        style={{ height: '70px', borderRadius: '50%', cursor: 'pointer' }}
         onClick={() => router.push('/')}
       />
       <Stack
