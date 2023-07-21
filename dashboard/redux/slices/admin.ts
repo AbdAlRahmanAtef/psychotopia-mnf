@@ -24,7 +24,7 @@ const initialToken =
     : null;
 
 export interface UserState {
-  admin: string;
+  admin: any;
   token: string;
 }
 
