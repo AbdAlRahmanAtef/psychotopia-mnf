@@ -5,7 +5,6 @@ import { Box, TextField, Typography, IconButton, Button } from '@mui/material';
 import { MuiChipsInput } from 'mui-chips-input';
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import Sidebar from './Sidebar';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 const PostForm = ({
@@ -74,7 +73,7 @@ const PostForm = ({
         >
           <Dropzone
             //@ts-ignore
-            acceptedFiles=".jpg,.jpeg,.png,.jfif"
+            acceptedFiles=".jpg,.jpeg,.png,.jfif,.svg"
             multiple={false}
             onDrop={(acceptedFiles) => handleImageUpload(acceptedFiles[0])}
           >

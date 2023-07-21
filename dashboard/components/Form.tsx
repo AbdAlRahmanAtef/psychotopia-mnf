@@ -9,10 +9,7 @@ import React, {
   Dispatch,
   useEffect,
 } from 'react';
-import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  Box,
   Button,
   Container,
   FormControl,
@@ -22,15 +19,9 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
-  TextField,
   Typography,
 } from '@mui/material';
-import {
-  AccountCircle,
-  VisibilityOff,
-  Visibility,
-  ErrorSharp,
-} from '@mui/icons-material';
+import { AccountCircle, VisibilityOff, Visibility } from '@mui/icons-material';
 
 const roles = [
   {
