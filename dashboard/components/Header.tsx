@@ -7,13 +7,20 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import Logo from 'assets/logo.svg';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Header = ({ show, setShow }) => {
   const { admin, token } = useSelector((state: RootState) => state.admin);
+  const pathname = usePathname();
 
   return (
     <>
-      <Paper sx={{ boxShadow: '3px 5px 10px 0px rgba(236, 176, 176, 0.5)' }}>
+      <Paper
+        sx={{
+          boxShadow: '3px 5px 10px 0px rgba(236, 176, 176, 0.5)',
+          display: pathname === '/login' ? 'none' : 'block',
+        }}
+      >
         <Container
           sx={{
             display: 'flex',

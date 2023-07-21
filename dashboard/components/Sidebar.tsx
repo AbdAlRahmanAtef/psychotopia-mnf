@@ -3,7 +3,10 @@
 import { Button, List, ListItem, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from 'react-redux';
+import { setAdmin } from '@/redux/slices/admin';
 
 const LINKS = [
   {
@@ -62,7 +65,15 @@ const LINKS = [
 
 const Sidebar = ({ show }) => {
   const pathname = usePathname();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
+  const logOut = () => {
+    dispatch(setAdmin({ admin: null, token: null }));
+    router.push('/login');
+  };
+
+  console.log(pathname);
   return (
     <Stack
       sx={{
@@ -71,7 +82,10 @@ const Sidebar = ({ show }) => {
         boxShadow: '3px 30px 10px #ddd',
         minHeight: '500px',
         height: 'fit-content',
-        display: 'flex',
+        display: pathname === '/login' ? 'none' : 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        p: '0 16px 16px',
         position: { xs: 'fixed', sm: 'relative' },
         right: 0,
         transform: {
@@ -103,6 +117,15 @@ const Sidebar = ({ show }) => {
           </Link>
         ))}
       </List>
+      <Button
+        fullWidth
+        variant="contained"
+        color="warning"
+        startIcon={<LogoutIcon sx={{ ml: 1 }} />}
+        onClick={logOut}
+      >
+        Log Out
+      </Button>
     </Stack>
   );
 };
