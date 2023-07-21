@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import React, {
@@ -58,7 +59,7 @@ const Form: FC<IProps> = ({
   type = 'login',
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState<any>({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
