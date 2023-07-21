@@ -1,29 +1,10 @@
 'use client';
 
 /* eslint-disable @next/next/no-img-element */
-import Header from 'components/Header';
-import {
-  Button,
-  Box,
-  Container,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
 import React, { useState } from 'react';
-import Sidebar from 'components/Sidebar';
-import Dropzone from 'react-dropzone';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { MuiChipsInput } from 'mui-chips-input';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { Metadata } from 'next';
 import PostForm from '@/components/PostForm';
-
-export const metadata: Metadata = {
-  title: 'Add Post',
-};
 
 const AddPost = () => {
   const [title, setTitle] = useState('');
