@@ -1,33 +1,14 @@
 import Admin from '../models/Admin.js';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import { v2 as cloudinary } from 'cloudinary';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
 /* CREATE */
 export const signup = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, image } = req.body;
-    let imageUrl = '';
-
-    if (image) {
-      const result = await cloudinary.uploader.upload(image, {
-        width: 500,
-        height: 500,
-        crop: 'fill',
-      });
-      imageUrl = result.secure_url;
-    } else {
-      imageUrl = '';
-    }
+    const { name, email, password, role } = req.body;
     const isFound = await Admin.findOne({ email });
 
     if (isFound) {
@@ -36,10 +17,10 @@ export const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const admin = await Admin.create({
-      name: `${firstName} ${lastName}`,
+      name,
       email: email.toLowerCase(),
       password: hashedPassword,
-      image: imageUrl,
+      role,
     });
 
     const token = jwt.sign(
@@ -47,7 +28,15 @@ export const signup = async (req, res) => {
       process.env.JWT_SECRET_KEY,
     );
 
-    res.json({ admin, token });
+    res.json({
+      admin: {
+        name: admin.name,
+        email: admin.email,
+        role: admin.role,
+        _id: admin._id,
+      },
+      token,
+    });
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -76,6 +65,42 @@ export const login = async (req, res) => {
     );
 
     res.status(200).json({ admin: foundAdmin, token });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+/* READ */
+export const getAdmins = async (req, res) => {
+  try {
+    const admins = await Admin.find().sort({ id: -1 });
+
+    res.json(admins);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+export const getAdminsById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const admin = await Admin.findById(id);
+
+    res.json(admin ? true : false);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+/* DELETE */
+
+export const deleteAdmin = async (req, res) => {
+  try {
+    await Admin.findByIdAndRemove(id);
+
+    const admins = await Admin.find();
+
+    res.json(admins);
   } catch (error) {
     res.json({ message: error.message });
   }

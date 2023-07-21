@@ -42,7 +42,7 @@ export const getPosts = async (req, res) => {
     const { category } = req.query;
     console.log(category);
     const filter = category ? { category } : {};
-    const posts = await Post.find({ filter }).sort({ _id: -1 });
+    const posts = await Post.find(filter).sort({ _id: -1 });
     const allCategories = await Post.distinct('category');
 
     res.status(200).json({ posts, allCategories });

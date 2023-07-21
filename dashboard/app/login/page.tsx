@@ -25,12 +25,15 @@ const Login = () => {
           formData,
         );
 
+        console.log(data);
+
         dispatch(setAdmin({ admin: data.admin, token: data.token }));
-        setFormData({ email: '', password: '' });
-        setIsLoading(false);
         router.push('/');
+        setFormData({ email: '', password: '' });
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -38,6 +41,7 @@ const Login = () => {
   return (
     <Container>
       <Form
+        type="login"
         handleSubmit={handleSubmit}
         setFormData={setFormData}
         formData={formData}

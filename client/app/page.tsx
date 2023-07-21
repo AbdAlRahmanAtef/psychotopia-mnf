@@ -25,8 +25,6 @@ const Home = () => {
       )
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
-
           setPosts(res.posts);
           setCategories(res.allCategories);
         });

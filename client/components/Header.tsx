@@ -13,9 +13,10 @@ import {
   IconButton,
   Typography,
   Paper,
+  Container,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logoDark from 'assets/Logo-dark.svg';
 import logoLight from 'assets/Logo-light.svg';
 import DarkModeButton from './DarkModeButton';
@@ -28,6 +29,12 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      setShowMenu(false);
+    });
+  }, []);
 
   return (
     <Box
@@ -121,18 +128,18 @@ const Header = () => {
         in={showMenu}
         sx={{
           position: 'absolute',
-          top: '100%',
+          top: '105%',
+          width: '100%',
           left: 0,
           zIndex: 2,
           display: { sm: 'none' },
         }}
       >
-        <List>
-          <ListItem>About Us</ListItem>
-          <ListItem>About Us</ListItem>
-          <ListItem>About Us</ListItem>
-          <ListItem>About Us</ListItem>
-        </List>
+        <Paper sx={{ width: '100%', py: 6 }}>
+          <Container>
+            <Link href="/about">About Us</Link>
+          </Container>
+        </Paper>
       </Collapse>
     </Box>
   );

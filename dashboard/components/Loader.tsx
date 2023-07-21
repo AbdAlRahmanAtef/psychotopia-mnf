@@ -19,24 +19,7 @@ const Loader = () => {
         width: '100%',
       }}
     >
-      <Box className="newtons-cradle">
-        <Box
-          className="newtons-cradle__dot"
-          sx={{ '&::after': { backgroundColor: 'primary.main' } }}
-        ></Box>
-        <Box
-          className="newtons-cradle__dot"
-          sx={{ '&::after': { backgroundColor: 'primary.main' } }}
-        ></Box>
-        <Box
-          className="newtons-cradle__dot"
-          sx={{ '&::after': { backgroundColor: 'primary.main' } }}
-        ></Box>
-        <Box
-          className="newtons-cradle__dot"
-          sx={{ '&::after': { backgroundColor: 'primary.main' } }}
-        ></Box>
-      </Box>
+      <div className="spinner"></div>
     </Box>
   );
 };

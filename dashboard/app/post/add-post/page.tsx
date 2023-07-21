@@ -56,25 +56,23 @@ const AddPost = () => {
   };
 
   return (
-    <Container>
-      <PostForm
-        mode="add"
-        title={title}
-        setTitle={setTitle}
-        handleSubmit={handleSubmit}
-        tags={tags}
-        setTags={setTags}
-        category={category}
-        setCategory={setCategory}
-        image={image}
-        setImage={setImage}
-        previewImage={previewImage}
-        setPreviewImage={setPreviewImage}
-        description={description}
-        setDescription={setDescription}
-        isLoading={isLoading}
-      />
-    </Container>
+    <PostForm
+      mode="add"
+      title={title}
+      setTitle={setTitle}
+      handleSubmit={handleSubmit}
+      tags={tags}
+      setTags={setTags}
+      category={category}
+      setCategory={setCategory}
+      image={image}
+      setImage={setImage}
+      previewImage={previewImage}
+      setPreviewImage={setPreviewImage}
+      description={description}
+      setDescription={setDescription}
+      isLoading={isLoading}
+    />
   );
 };
 
