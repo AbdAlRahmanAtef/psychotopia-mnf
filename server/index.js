@@ -21,11 +21,13 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
-/* ROUTES */
-app.get('/', (req, res) => {
-  res.header('Access-Control-Allow-Origin', `${process.env.CORS_URL}`);
-  res.send('Welcome to the Main Route!');
+/* Middleware to allow any origin */
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
 });
+
+/* ROUTES */
 app.use('/posts', postsRoute);
 app.use('/admin', adminRoute);
 
@@ -33,7 +35,7 @@ const PORT = process.env.PORT || 5000;
 
 mongoose.set('strictQuery', false);
 mongoose
-  .connect(`${process.env.MONGODB_CONNECTION_URL}`, {
+  .connect(process.env.MONGODB_CONNECTION_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
