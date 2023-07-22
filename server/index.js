@@ -33,10 +33,13 @@ const PORT = process.env.PORT || 5000;
 
 mongoose.set('strictQuery', false);
 mongoose
-  .connect(`${process.env.MONGODB_CONNECTION_URL}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `${process.env.MONGODB_CONNECTION_URL}`,
+    // {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    // }
+  )
   .then(() => {
     app.listen(PORT, () => {
       console.log(`listening on port ${PORT}`);
