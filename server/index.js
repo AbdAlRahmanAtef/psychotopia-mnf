@@ -23,9 +23,9 @@ app.use(cors());
 
 /* ROUTES */
 app.get('/', (req, res) => {
-  res.send('Welcome  the Main Route!');
+  res.header('Access-Control-Allow-Origin', `${process.env.CORS_URL}`);
+  res.send('Welcome to the Main Route!');
 });
-
 app.use('/posts', postsRoute);
 app.use('/admin', adminRoute);
 
