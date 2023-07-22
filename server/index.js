@@ -23,7 +23,7 @@ app.use(cors());
 
 /* ROUTES */
 app.get('/', (req, res) => {
-  res.send('Welcome to the Main Route!');
+  res.send('Welcome  the Main Route!');
 });
 
 app.use('/posts', postsRoute);
