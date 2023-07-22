@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Post from '@/components/Post';
 import Loader from '@/components/Loader';
 import NoResults from '@/components/NoResults';
-
+//
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
