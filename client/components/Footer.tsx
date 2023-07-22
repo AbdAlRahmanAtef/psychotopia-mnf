@@ -93,6 +93,7 @@ const Footer = () => {
             fontSize: '18px',
           }}
         >
+          {/* hello */}
           <CopyrightIcon />
           جميع الحقوق محفوظة
         </Typography>
