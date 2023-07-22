@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import morgan from 'morgan';
 
 import postsRoute from './routes/posts.js';
@@ -21,6 +22,10 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
 /* ROUTES */
+app.get('/', (req, res) => {
+  res.send('Welcome to the Main Route!');
+});
+
 app.use('/posts', postsRoute);
 app.use('/admin', adminRoute);
 
