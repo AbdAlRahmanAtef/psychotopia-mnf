@@ -35,11 +35,10 @@ const EditPost = ({ params }) => {
           },
         );
 
-        console.log(data);
         router.push('/');
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       } finally {
         setIsLoading(false);
       }
@@ -53,7 +52,6 @@ const EditPost = ({ params }) => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/posts/${params.id}`,
       );
-      console.log(data);
 
       setPost(data);
       setTitle(data.title);

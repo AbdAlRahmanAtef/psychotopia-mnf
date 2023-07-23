@@ -27,11 +27,10 @@ const AddPost = () => {
           { title, image, description, tags: tags.join(','), category },
         );
 
-        console.log(data);
         router.push('/');
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
   };

@@ -2,16 +2,7 @@
 
 import AdminBox from '@/components/AdminBox';
 import Loader from '@/components/Loader';
-import Sidebar from '@/components/Sidebar';
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Button, Container, Paper, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -44,7 +35,7 @@ const Admin = () => {
         <Loader />
       ) : (
         <Stack sx={{ width: '100%', gap: 2 }}>
-          {admins.map((admin) => (
+          {admins?.map((admin) => (
             <AdminBox admin={admin} key={admin._id} setAdmins={setAdmins} />
           ))}
 

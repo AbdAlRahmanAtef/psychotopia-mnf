@@ -25,8 +25,6 @@ const Login = () => {
           formData,
         );
 
-        console.log(data);
-
         dispatch(setAdmin({ admin: data.admin, token: data.token }));
         router.push('/');
         setFormData({ email: '', password: '' });

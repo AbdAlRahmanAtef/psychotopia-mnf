@@ -46,8 +46,6 @@ const PostForm = ({
     }
   };
 
-  console.log({ image });
-
   const handleTagsChange = (newTags) => {
     setTags(newTags);
   };

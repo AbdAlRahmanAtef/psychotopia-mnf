@@ -93,8 +93,6 @@ const Form: FC<IProps> = ({
     setFormErrors(validate(formData));
   }, [formData]);
 
-  console.log({ formData, formErrors });
-
   return (
     <Container>
       <form

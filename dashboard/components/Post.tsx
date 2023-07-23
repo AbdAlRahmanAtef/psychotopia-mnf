@@ -40,7 +40,6 @@ const Post = ({ post }) => {
       await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`,
       );
-      console.log('post deleted successfully');
       setOpen(false);
     } catch (error) {
       console.error(error);

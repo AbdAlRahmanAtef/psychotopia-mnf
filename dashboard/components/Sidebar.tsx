@@ -73,7 +73,6 @@ const Sidebar = ({ show }) => {
     router.push('/login');
   };
 
-  console.log(pathname);
   return (
     <Stack
       sx={{
