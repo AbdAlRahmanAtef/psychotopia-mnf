@@ -96,6 +96,7 @@ export const getAdminsById = async (req, res) => {
 
 export const deleteAdmin = async (req, res) => {
   try {
+    const { id } = req.params;
     await Admin.findByIdAndRemove(id);
 
     const admins = await Admin.find();

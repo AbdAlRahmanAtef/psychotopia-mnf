@@ -1,13 +1,13 @@
 'use client';
 
-import { Box, Container, Paper, Typography } from '@mui/material';
+import { Box, Container, Paper } from '@mui/material';
 
 import Landing from 'components/Landing';
 import { useEffect, useState } from 'react';
 import Post from '@/components/Post';
 import Loader from '@/components/Loader';
 import NoResults from '@/components/NoResults';
-//
+
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -34,7 +34,6 @@ const Home = () => {
       setIsLoading(false);
     }
   };
-  console.log(posts);
 
   useEffect(() => {
     getPosts();

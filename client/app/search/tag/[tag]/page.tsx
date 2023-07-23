@@ -12,7 +12,6 @@ import React, { useEffect, useState } from 'react';
 const SearchTags = ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-  console.log(params);
 
   const getPost = async () => {
     try {
@@ -21,7 +20,6 @@ const SearchTags = ({ params }) => {
         `${process.env.NEXT_PUBLIC_BASE_URL}/posts/tags?tags=${params.tag}`,
       );
       setPosts(data);
-      console.log(data);
     } catch (error) {
       console.error(error);
     } finally {

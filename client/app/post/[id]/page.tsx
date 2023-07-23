@@ -9,7 +9,6 @@ const Post = ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState(null);
 
-  console.log(params.id);
   const getPost = async () => {
     try {
       setIsLoading(true);

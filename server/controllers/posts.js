@@ -40,7 +40,6 @@ export const createPost = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const { category } = req.query;
-    console.log(category);
     const filter = category ? { category } : {};
     const posts = await Post.find(filter).sort({ _id: -1 });
     const allCategories = await Post.distinct('category');
@@ -84,7 +83,6 @@ export const searchPost = async (req, res) => {
 export const getPostsByTags = async (req, res) => {
   try {
     const { tags } = req.query;
-    console.log(tags);
 
     const posts = await Post.find({
       tags: { $regex: tags, $options: 'i' },
